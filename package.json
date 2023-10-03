@@ -1,0 +1,19 @@
+{
+  "name": "inft",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "DarkingLee <xiuerdwy@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@vuepress/plugin-google-analytics": "^1.8.2",
+    "vuepress": "^1.8.2",
+    "vuepress-theme-hope": "^1.20.2"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "docs:clean-dev": "vuepress dev docs --no-cache",
+    "docs:eject-theme": "vuepress eject-hope docs",
+    "deploy": "yarn docs:build && bash scripts/deploy-gh.sh GH=1"
+  }
+}
