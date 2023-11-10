@@ -2,7 +2,7 @@ const { config } = require("vuepress-theme-hope");
 
 module.exports = config({
   title: "Docs",
-  description: "User-friendly Web3",
+  description: "One Block, One Movie",
 
   dest: "./dist",
 
@@ -30,7 +30,7 @@ module.exports = config({
     },
     "/zh/": {
       title: "Docs",
-      description: "用户友好的Web3",
+      description: "One Block, One Movie",
     },
   },
 
@@ -78,7 +78,7 @@ module.exports = config({
           title: "Run a Node",
           icon: "shell",
           prefix: "node/",
-          children: ["../", "starting-a-node", "using-docker"],
+          children: ["../", "types-of-nodes", "starting-a-node", "strating-a-light-client", "using-docker"],
         },
         {
           title: "Submitting data",
@@ -128,7 +128,7 @@ module.exports = config({
               title: "运行节点",
               icon: "shell",
               prefix: "node/",
-              children: ["../", "starting-a-node", "using-docker"],
+              children: ["../", "types-of-nodes", "starting-a-node", "strating-a-light-client", "using-docker"],
             },
             {
               title: "提交数据",

@@ -11,13 +11,12 @@ category: Running node
 ```bash
 git clone git@github.com:ZeroDAO/melodot.git
 cd melodot
-make init
 ```
 
 ## Build
 
 ```bash
-make build-release
+make build-default
 ```
 
 # 2. Running a development network
@@ -33,7 +32,7 @@ make run-dev
 Start the local blockchain node using the `alice` account by running the following command:
 
 ```bash
-./target/release/melodot \
+./target/release/melodot-node \
   --base-path /tmp/alice \
   --chain local \
   --alice \
@@ -44,7 +43,7 @@ Start the local blockchain node using the `alice` account by running the follo
 Start a second local blockchain node using the `bob` account by running the following command:
 
 ```bash
-./target/release/melodot \
+./target/release/melodot-node \
   --base-path /tmp/bob \
   --chain local \
   --bob \
