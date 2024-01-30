@@ -64,7 +64,7 @@ module.exports = config({
           title: "Overview",
           icon: "more",
           prefix: "introduction/",
-          children: ["../", "modular-blockchains"],
+          children: ["../", "modular-blockchains", "networks"],
         },
         {
           title: "Architecture",
@@ -78,7 +78,7 @@ module.exports = config({
           title: "Run a Node",
           icon: "shell",
           prefix: "node/",
-          children: ["../", "types-of-nodes", "starting-a-node", "strating-a-light-client", "using-docker"],
+          children: ["../", "types-of-nodes", "starting-a-node", "strating-a-light-client", "strating-a-farmer-client", "using-docker"],
         },
         {
           title: "Submitting data",
@@ -114,7 +114,7 @@ module.exports = config({
               title: "了解",
               icon: "more",
               prefix: "introduction/",
-              children: ["../", "modular-blockchains"],
+              children: ["../", "modular-blockchains", "networks"],
             },
             {
               title: "架构",
@@ -128,7 +128,7 @@ module.exports = config({
               title: "运行节点",
               icon: "shell",
               prefix: "node/",
-              children: ["../", "types-of-nodes", "starting-a-node", "strating-a-light-client", "using-docker"],
+              children: ["../", "types-of-nodes", "starting-a-node", "strating-a-light-client", "strating-a-farmer-client", "using-docker"],
             },
             {
               title: "提交数据",
