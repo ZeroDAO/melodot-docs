@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US">
+  <id>https://docs.melodot.io/</id>
+  <title>Docs</title>
+  <subtitle>One Block, One Movie</subtitle>
+  <author>
+    <name>ZeroDAO</name>
+  </author>
+  <updated>2024-02-22T11:01:42.664Z</updated>
+  <generator>@mr-hope/vuepress-plugin-feed</generator>
+  <link rel="self" href="https://docs.melodot.io/atom.xml"/>
+  <link rel="alternate" href="https://docs.melodot.io/"/>
+  <rights>Copyright by ZeroDAO</rights>
+  <category term="Running a Light Client"/>
+  <category term="Running the Farmer Client"/>
+  <category term="Running node"/>
+  <category term="Node Types"/>
+  <category term="Submitting Data"/>
+  <category term="Using Docker"/>
+  <category term="Setup"/>
+  <category term="Lifecycle of Blob_tx"/>
+  <category term="How Melodot Works"/>
+  <category term="Network"/>
+  <category term="Modular Blockchain"/>
+  <category term="What is Melodot"/>
+  <category term="运行节点"/>
+  <category term="运行农民客户端"/>
+  <category term="运行轻节点"/>
+  <category term="环境配置"/>
+  <category term="节点类型"/>
+  <category term="使用 Docker"/>
+  <category term="提交数据"/>
+  <category term="Blob_tx 的生命周期"/>
+  <category term="模块化区块链"/>
+  <category term="Melodot 如何工作"/>
+  <category term="网络"/>
+  <category term="Melodot 是什么"/>
+  <contributor>
+    <name>ZeroDAO</name>
+  </contributor>
+  <entry>
+    <title type="html">Running a Light Client</title>
+    <id>https://docs.melodot.io/guide/node/strating-a-light-client/</id>
+    <link href="https://docs.melodot.io/guide/node/strating-a-light-client/"/>
+    <updated>2023-11-10T00:52:16.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="running-a-light-client"> Running a Light Client</h1>
+<h2 id="_1-introduction"> 1. Introduction</h2>
+<p>The light client of the Melodot network is currently operational on the development network. Light nodes can obtain block headers of final blocks from the Melodot network via RPC and verify data validity through sampling.</p>
+<h2 id="_2-operating-mechanism"> 2. Operating Mechanism</h2>
+<p>Melodot light nodes obtain data availability through sampling. They do not need to trust any node, nor do they need to download the entire data set.</p>
+<p>Light nodes first obtain the block headers of the latest final blocks from full nodes. Then they construct sample IDs from the metadata in the block headers and sample these random samples in a separate data network, verifying the data through the KZG commitments in the block headers.</p>
+<h2 id="_3-building"> 3. Building</h2>
+<p>Building from source:</p>
+<div><pre><code><span>git</span> clone git@github.com:ZeroDAO/melodot.git
+<span>cd</span> melodot
+<span>make</span> build-light
+</code></pre>
+<div><span>1</span><br><span>2</span><br><span>3</span><br></div></div><h2 id="_4-execution"> 4. Execution</h2>
+<p>Ensure that the Melodot development network is started first, and then run the light node to join the development network:</p>
+<div><pre><code><span>make</span> run-light-dev
+</code></pre>
+<div><span>1</span><br></div></div><h2 id="_5-rpc-interface"> 5. RPC Interface</h2>
+<h3 id="post-das-blockconfidence"> POST /das_blockConfidence</h3>
+<p>Obtain the confidence level by block hash, which will return the confidence level as parts per million.</p>
+<div><pre><code><span>curl</span> --data <span>'{"method":"das_blockConfidence",\
+"params":["0xc964c3636fdf33bcc4ccc7ad854b32862e02ec50f02a00ba43f0b02c4fbb67e3"],\
+"id":1,"jsonrpc":"2.0"}'</span> <span>\</span>
+-H <span>"Content-Type: application/json"</span> <span>\</span>
+-X POST localhost:4177
+</code></pre>
+<div><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br></div></div><p><em><strong>Responses</strong></em></p>
+<div><pre><code><span>{</span><span>"jsonrpc"</span><span>:</span><span>"2.0"</span><span>,</span><span>"result"</span><span>:</span><span>937500</span><span>,</span><span>"id"</span><span>:</span><span>1</span><span>}</span>
+</code></pre>
+<div><span>1</span><br></div></div><h3 id="post-das-isavailable"> POST /das_isAvailable</h3>
+<p>Obtain whether the data of a block is available by block hash. If it returns null, it means there is no data for that block.</p>
+<div><pre><code><span>curl</span> --data <span>'{"method":"das_isAvailable",\
+"params":["0xc964c3636fdf33bcc4ccc7ad854b32862e02ec50f02a00ba43f0b02c4fbb67e3"],\
+"id":1,"jsonrpc":"2.0"}'</span> <span>\</span>
+-H <span>"Content-Type: application/json"</span> <span>\</span>
+-X POST localhost:4177
+</code></pre>
+<div><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br></div></div><p><em><strong>Responses</strong></em></p>
+<div><pre><code><span>{</span><span>"jsonrpc"</span><span>:</span><span>"2.0"</span><span>,</span><span>"result"</span><span>:</span><span>false</span><span>,</span><span>"id"</span><span>:</span><span>1</span><span>}</span>
+</code></pre>
+<div><span>1</span><br></div></div>]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="Running a Light Client"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-11-10T00:52:16.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">Running the Farmer Client</title>
+    <id>https://docs.melodot.io/guide/node/strating-a-farmer-client/</id>
+    <link href="https://docs.melodot.io/guide/node/strating-a-farmer-client/"/>
+    <updated>2024-01-30T09:31:04.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="running-the-farmer-client"> Running the Farmer Client</h1>
+<h2 id="_1-introduction"> 1. Introduction</h2>
+<p>The farmer client in Melodot undertakes the task of distributed generation and storage of data, earning rewards through the honest generation and storage of data. The current version is a simplified Proof of Concept (PoC) version, demonstrating the workings of Proof of Space (PoSpace) within the Melodot network.</p>
+<h2 id="_2-compilation"> 2. Compilation</h2>
+<p>Building from source</p>
+<div><pre><code><span>git</span> clone git@github.com:ZeroDAO/melodot.git
+<span>cd</span> melodot
+<span>make</span> build-farmer
+</code></pre>
+<div><span>1</span><br><span>2</span><br><span>3</span><br></div></div><h2 id="_3-running"> 3. Running</h2>
+<p>First, make sure that the Melodot development network is up and running, then you can start the farmer client with the following command.</p>
+<div><pre><code><span>make</span> run-farmer
+</code></pre>
+<div><span>1</span><br></div></div>]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="Running the Farmer Client"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2024-01-30T09:31:04.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">Running node</title>
+    <id>https://docs.melodot.io/guide/node/starting-a-node/</id>
+    <link href="https://docs.melodot.io/guide/node/starting-a-node/"/>
+    <updated>2023-11-10T00:52:16.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="running-node"> Running node</h1>
+<h2 id="_1-building-melodot"> 1. Building Melodot</h2>
+<h2 id="installation"> Installation</h2>
+<div><pre><code><span>git</span> clone git@github.com:ZeroDAO/melodot.git
+<span>cd</span> melodot
+</code></pre>
+<div><span>1</span><br><span>2</span><br></div></div><h2 id="build"> Build</h2>
+<div><pre><code><span>make</span> build-default
+</code></pre>
+<div><span>1</span><br></div></div><h1 id="_2-running-a-development-network"> 2. Running a development network</h1>
+<h2 id="_1-run-as-dev"> 1. Run as dev</h2>
+<div><pre><code><span>make</span> run-dev
+</code></pre>
+<div><span>1</span><br></div></div><h2 id="_2-run-as-local"> 2. Run as local</h2>
+<p>Start the local blockchain node using the <code>alice</code> account by running the following command:</p>
+<div><pre><code>./target/release/melodot-node <span>\</span>
+  --base-path /tmp/alice <span>\</span>
+  --chain <span>local</span> <span>\</span>
+  --alice <span>\</span>
+  --node-key 0000000000000000000000000000000000000000000000000000000000000001
+  --validator
+</code></pre>
+<div><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br></div></div><p>Start a second local blockchain node using the <code>bob</code> account by running the following command:</p>
+<div><pre><code>./target/release/melodot-node <span>\</span>
+  --base-path /tmp/bob <span>\</span>
+  --chain <span>local</span> <span>\</span>
+  --bob <span>\</span>
+  --port <span>30334</span> <span>\</span>
+  --bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp
+  --validator
+</code></pre>
+<div><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br></div></div>]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="Running node"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">Node Types</title>
+    <id>https://docs.melodot.io/guide/node/types-of-nodes/</id>
+    <link href="https://docs.melodot.io/guide/node/types-of-nodes/"/>
+    <updated>2023-11-10T00:52:16.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="node-types"> Node Types</h1>
+<p>Melodot nodes are categorized into three main types: consensus nodes, light clients, and farmer nodes. They work together to maintain the high throughput and security of the Melodot network. Consensus nodes are responsible for consensus, light clients for verification, and farmer nodes for data storage.</p>
+<h2 id="consensus-nodes"> Consensus Nodes</h2>
+<p>The role of consensus nodes is to handle data transactions and a minimal amount of other necessary transactions, such as transfers. The design principle of consensus nodes is to be light enough that validators undertake as few tasks as possible. This allows them to perform other duties without impacting consensus, thereby enhancing the scalability of the system.</p>
+<p>Specifically, consensus nodes are responsible for:</p>
+<ul>
+<li>Processing data transactions</li>
+<li>Reaching consensus and producing blocks</li>
+<li>Handling transactions related to farmer incentives</li>
+<li>Preliminary sampling for data availability</li>
+<li>Handling a minimal amount of other necessary transactions like transfers</li>
+</ul>
+<p>It should be noted that consensus nodes are not responsible for the ultimate data availability. Architecturally, validators do not need to be concerned about whether the data is available; they should only care if the data transactions are valid. However, for greater availability, we will introduce another role of data providers in the future to ensure data availability, while consensus nodes will only need to do simple sampling. Additionally, consensus nodes do not actually download and store data; that is the responsibility of farmer nodes.</p>
+<p>Looking at a finer granularity, consensus nodes are further divided into validator nodes, full nodes, boot nodes, consensus light nodes, and so on.</p>
+<h2 id="light-clients"> Light Clients</h2>
+<p>Light clients validate data availability through sampling without needing to trust third parties, including validators. Currently, light clients communicate with consensus nodes via RPC. In the future, we will introduce more communication methods, such as communicating with consensus nodes through a P2P network, and possessing the ability of final blocks, which will greatly enhance the security of light clients by making them not need to trust consensus nodes.</p>
+<p>Light clients provide RPC services, which can be used to obtain the data confidence level and availability of each block. We will introduce SDKs in more languages in the future, making it more convenient to integrate light clients into applications.</p>
+<p>From the system's perspective, light clients also become data providers while sampling. The scale of the light clients determines the amount of data that can be accommodated in a single block.</p>
+<h2 id="farmer-nodes"> Farmer Nodes</h2>
+<p>Farmer nodes earn rewards by storing data and provide samples to other sampling nodes through off-chain consensus. Farmer nodes are the backbone of the entire network, enhancing your ability to retrieve data.</p>
+<p>It is important to note that farmer nodes do not affect the security of data availability.</p>
+]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="Node Types"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-11-10T00:52:16.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">Submitting Data</title>
+    <id>https://docs.melodot.io/guide/submitting-data/</id>
+    <link href="https://docs.melodot.io/guide/submitting-data/"/>
+    <updated>2023-10-03T14:11:32.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="submitting-data"> Submitting Data</h1>
+<p>Currently, you can learn how to interact with Melodot from the Rust examples. We anticipate that some interfaces will be modified once the light nodes are released. At that time, we will update with more powerful interfaces.</p>
+<h2 id="example"> Example</h2>
+<ol>
+<li><a href="https://github.com/ZeroDAO/melodot/blob/main/crates/meloxt/examples/header.rs" target="_blank" rel="noopener noreferrer">Connect to Melodot</a>.</li>
+<li><a href="https://github.com/ZeroDAO/melodot/blob/main/crates/meloxt/examples/register_app.rs" target="_blank" rel="noopener noreferrer">Register the application</a>.</li>
+<li><a href="https://github.com/ZeroDAO/melodot/blob/main/crates/meloxt/examples/submit_data.rs" target="_blank" rel="noopener noreferrer">Call the submit_data interface</a>.</li>
+<li><a href="https://github.com/ZeroDAO/melodot/blob/main/crates/meloxt/examples/submit_blob_tx.rs" target="_blank" rel="noopener noreferrer">Use the submit_blob_tx RPC</a>.</li>
+</ol>
+]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="Submitting Data"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">Using Docker</title>
+    <id>https://docs.melodot.io/guide/node/using-docker/</id>
+    <link href="https://docs.melodot.io/guide/node/using-docker/"/>
+    <updated>2023-11-10T00:52:16.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="using-docker"> Using Docker</h1>
+<p>Clone the Melodot code repository and navigate to the project directory in the terminal:</p>
+<div><pre><code><span>git</span> clone git@github.com:ZeroDAO/melodot.git
+<span>cd</span> melodot
+</code></pre>
+<div><span>1</span><br><span>2</span><br></div></div><p>Use the command below to start a container running Melodot:</p>
+<div><pre><code>./scripts/docker_run.sh
+</code></pre>
+<div><span>1</span><br></div></div>]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="Using Docker"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">Setup</title>
+    <id>https://docs.melodot.io/guide/</id>
+    <link href="https://docs.melodot.io/guide/"/>
+    <updated>2023-10-03T14:11:32.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="setup"> Setup</h1>
+<h2 id="install-rust"> Install Rust</h2>
+<div><pre><code><span>curl</span> https://sh.rustup.rs -sSf <span>|</span> <span>sh</span>
+rustup update stable
+</code></pre>
+<div><span>1</span><br><span>2</span><br></div></div><h2 id="install-dependencies"> Install Dependencies</h2>
+<h3 id="mac"> Mac</h3>
+<div><pre><code>brew <span>install</span> cmake pkg-config openssl <span>git</span> llvm
+</code></pre>
+<div><span>1</span><br></div></div><h3 id="linux"> Linux</h3>
+<div><pre><code><span>sudo</span> <span>apt</span> <span>install</span> cmake pkg-config libssl-dev <span>git</span> clang libclang-dev
+</code></pre>
+<div><span>1</span><br></div></div><div><p>Note</p>
+<p>Melodot is developed based on Substrate. For more information, please visit <a href="https://docs.substrate.io/install/" target="_blank" rel="noopener noreferrer">Substrate</a> 。</p>
+</div>
+]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="Setup"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">Lifecycle of Blob_tx</title>
+    <id>https://docs.melodot.io/learn/architecture/lifecycle-of-blob_tx/</id>
+    <link href="https://docs.melodot.io/learn/architecture/lifecycle-of-blob_tx/"/>
+    <updated>2023-10-03T14:11:32.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="lifecycle-of-blob-tx"> Lifecycle of Blob_tx</h1>
+<p><img src="./../../image/lifecycle-min.png" alt="lifecycle" /></p>
+<h2 id="user-encodes-data"> User Encodes Data</h2>
+<p>Users split the data they need to submit into Blobs, calculate polynomial commitments for each blob, and complete a challenge to prove that the data has been encoded correctly.</p>
+<h2 id="submit-blobs-and-transactions"> Submit Blobs and Transactions</h2>
+<p>Users construct encoded metadata into a transaction and submit it to the node along with the original data. The node pushes the transaction into the transaction pool, then verifies if the encoding has been done correctly and if it matches the metadata in the transaction. If everything is correct, the original data will be pushed to the peer-to-peer network. It's worth noting that if the data hasn't been encoded correctly, the transaction will still be pushed to the transaction pool, but the node won't push the data. This is done to prevent Denial of Service attacks.</p>
+<p>In the final version, the original data will not propagate among validators, and users can use various ways to publish data and submit transactions. For example, they can initiate transactions and push data directly through a light client, or submit original data and transactions to the node's RPC port, or just submit the transaction and publish the data on their own.</p>
+<h2 id="validators-preliminarily-determine-availability"> Validators Preliminarily Determine Availability</h2>
+<p>After building a block, validators will preliminarily validate the availability of the data. This is a very lenient validation, aiming to improve system robustness. In the current version, validators need to download all data from the peer-to-peer network for validation. In the next phase that's about to be completed, validators only need to use inexpensive sampling.</p>
+<p>If validators find the data unavailable, they will initiate an unavailability report. When the number of reporting validators reaches a certain threshold, the data will be marked as unavailable. All other available data will be encoded into the block header.</p>
+<p>Currently, we have set a delay of 1 block, meaning the data of the current block will be encoded in the header of the next block. This is done to provide a sufficient time window to report unavailable data. In the final version, we will use aggregate signatures to efficiently confirm unavailable data, and the data of the current block will be immediately encoded in the block header.</p>
+<h2 id="farmers-distributively-produce-data"> Farmers Distributively Produce Data</h2>
+<p>When the block reaches its Best state, farmers retrieve rows and columns they need to download from the block header information and then expand columns to double their size.</p>
+<h2 id="availability-sampling"> Availability Sampling</h2>
+<p>Once the block with the data availability header reaches its finality, validators, farmers, and users (light clients) will simultaneously sample, obtaining the final confidence value through multiple sampling rounds. Farmers at this stage need to obtain a wider range of data, ensuring there are enough sampling nodes in the system.</p>
+<h2 id="distributed-storage"> Distributed Storage</h2>
+<p>After the sampling phase is completed, farmers will save specific rows and columns to distributed storage.</p>
+]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="Lifecycle of Blob_tx"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">How Melodot Works</title>
+    <id>https://docs.melodot.io/learn/architecture/</id>
+    <link href="https://docs.melodot.io/learn/architecture/"/>
+    <updated>2023-10-03T14:11:32.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="how-melodot-works"> How Melodot Works</h1>
+<h2 id="data-availability-sampling"> Data Availability Sampling</h2>
+<p>In a decoupled data availability layer, it's crucial that any module using it can achieve consensus on data availability at low costs. This requires the data availability layer not to ponder &quot;how secure it is to what extent&quot; but to function &quot;without introducing additional assumptions&quot;. Melodot achieves this by encoding data into a 2D matrix and adopting availability sampling. Specifically, data is expanded to double its size in both row and column directions, where any half of any row and column can recover the original data. Thus, successfully sampling a single data block indicates a 75% probability of data availability. Repeated sampling provides sufficient confidence in data availability.</p>
+<h2 id="polynomial-commitments"> Polynomial Commitments</h2>
+<p>Melodot employs polynomial commitments to ensure accurate data encoding. The original data availability layer uses Merkle encoding, relying on a robust full node to acquire all data, generate, and disseminate fraud proofs. We've avoided this, not only because it's less efficient but also since it introduces additional assumptions.</p>
+<p>In detail, we generate KZG commitments in the row direction. Data blocks in a specific quantity are encoded into segments, each sharing a common proof. Sampling is also based on these segments for improved efficiency.</p>
+<p>Furthermore, our design maintains compatibility and continues to explore alternative cryptographic solutions, keeping up with the latest advancements in areas like STARK, FRI, IPA, etc.</p>
+<h2 id="minimum-honest-samplers"> Minimum Honest Samplers</h2>
+<p>When there's an insufficient number of honest samplers in the network, data providers may only release part of the data, just enough to give the impression of its availability, and then withhold the rest, making data irrecoverable. This emphasizes the need for a substantial number of honest samplers in the network. Thus, one might argue that system throughput depends on the number of these samplers.</p>
+<p>It's challenging to observe and predict the number of samplers for each block. As light clients are more concerned about data relevant to them and, for economic reasons, don't sample blocks they're not interested in, there's a potential significant disparity in the number of samplers across blocks. Hence, the statement &quot;system throughput increases with the number of samplers&quot; must be approached cautiously.</p>
+<p>Melodot addresses this by introducing farmers who are incentivized to sample an ample amount of data, store it for a specified duration, and provide bandwidth for the P2P network. We can gauge the number of active farmers from reward distributions, thereby safely determining system throughput.</p>
+<h2 id="distributed-generation"> Distributed Generation</h2>
+<p>The original data availability layer required proposers to independently handle expensive polynomial commitments and RS encoding for all data during the proposal phase, demanding high bandwidth and performance. Not only does this deepen system centralization, but it also throttles system throughput.</p>
+<p>Melodot, however, sees validators acting more like light clients without the need for hefty encoding. The task of expanding data in the column direction is delegated to different farmers. They first acquire the original commitments from the block header and then expand it to double the size. This is achieved through direct expansion without actual polynomial commitment calculations. Farmers search for the &quot;jackpot&quot; in these data to earn rewards. Once distributed generation is complete, the P2P network should already contain all data blocks after 2D erasure coding. Note that in the worst case, if all farmers go offline, the final sampling will fail, and the data becomes unavailable, ensuring that farmers don't compromise system security.</p>
+<p>This distributed generation is vital for system throughput. We've effectively made system throughput scale with the number of farmers without sacrificing decentralization.</p>
+<h2 id="pospace"> PoSpace</h2>
+<p>Melodot employs a Chia-style PoSpace to ensure farmers store data honestly. It requires farmers to perform a one-time &quot;P-plate&quot; procedure, committing to a certain hard drive size. Subsequently, farmers can farm on this hard drive for an extended period with minimal resource consumption. This allows consumer-grade PCs to join the network, signifying a highly decentralized incentive mechanism.</p>
+<p>In the official version, users can set their data storage duration. Expired data won't earn rewards, prompting farmers to periodically update their data. Users can reliably fetch availability data from the predominantly farmer-based distributed storage. In the final version, we'll introduce adversarial techniques to motivate farmers to participate more in data exchange.</p>
+]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="How Melodot Works"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">OverTrue Development Testnet</title>
+    <id>https://docs.melodot.io/learn/introduction/networks/</id>
+    <link href="https://docs.melodot.io/learn/introduction/networks/"/>
+    <updated>2024-01-30T09:31:04.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="overtrue-development-testnet"> OverTrue Development Testnet</h2>
+<p>Explorer: <a href="https://scan.melodot.io/" target="_blank" rel="noopener noreferrer">https://scan.melodot.io/</a></p>
+<p>OverTrue is a development testnet designed to provide a usable testing environment in phases. It will undergo rapid iterations and may be reset without prior notice. Currently, we are not operating a sufficient number of farmers, so data availability cannot be guaranteed. However, a full-featured version is expected to be launched soon, entering the official testing phase of OverTrue.</p>
+<h3 id="faucet"> Faucet</h3>
+<p>Join ZeroDAO's <a href="https://discord.gg/uCQUcd9fk7" target="_blank" rel="noopener noreferrer">Discord</a>, and in the <code>#melodot-faucet</code> channel, use the <code>/deposit</code> command to receive test coins.</p>
+]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="Network"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2024-01-30T09:31:04.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">Modular Blockchain</title>
+    <id>https://docs.melodot.io/learn/introduction/modular-blockchains/</id>
+    <link href="https://docs.melodot.io/learn/introduction/modular-blockchains/"/>
+    <updated>2024-02-22T10:57:40.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="modular-blockchain"> Modular Blockchain</h1>
+<p>Modular blockchain is an undefined concept, temporarily used to refer to blockchain architectures that align with the idea of domain-driven design. Therefore, it might not be the same as the &quot;modular&quot; concept you are familiar with.</p>
+<h2 id="architecture"> Architecture</h2>
+<p><img src="./../../image/modular-blockchains.png" alt="modular-blockchain" /></p>
+<p><strong>Consensus Layer and State Machine</strong></p>
+<p>At its core, a blockchain is a finite state machine that can change states through external commands. To achieve global consensus on state changes, a consensus layer is needed. They are the core parts of a blockchain, where the consensus layer and the state machine are actually independent. In the Substrate framework, there are many consensus layer Pallets that make up the Runtime together with the state machine; in Cosmos, the state machine and consensus layer are explicitly decoupled; in Ethereum's latest architecture, the consensus layer and execution layer are also decoupled.</p>
+<p>In Rollups, we often refer to the consensus layer as the settlement layer, where transactions are executed off-chain, and the final state root is kept on the settlement layer, essentially serving the role of consensus.</p>
+<p><strong>Message Queue Service</strong></p>
+<p>The messaging layer is an indispensable part of software engineering, allowing reliable communication between system modules, each performing its role. In the context of blockchains, cross-chain messaging comes to mind, such as cross-chain bridges that communicate between two chains, or cross-chain messaging protocols like XCM (Cross-Consensus Message format) and IBC (Inter-Blockchain Communication).</p>
+<p>In fact, another important messaging layer is the blockchain itself. We consider Bitcoin, Polkadot, and Ethereum as reliable messaging services. Bitcoin's Ordinals, BRC20, and other protocols transmit sequential instructions and protocolize the state machine on the Bitcoin network, ideally allowing all users to verify transactions without trusting a third party. In the Ethereum ecosystem, there was an early proposal to implement ERC20 through logs.</p>
+<p>Although inscriptions are not widely regarded as modular blockchains, from a technical perspective, they treat the monolithic blockchain as a message queue service, aligning with the concept of modular blockchains. The advantage of inscriptions is that all nodes can reach consensus without the need for communication, greatly expanding the throughput of blockchains. However, the downside is also evident, as the messaging service layer can only transmit very limited information, making it difficult for the inscription system to expand, such as in smart contract functionalities. If we securely store data in another module and only publish pointers to the data in the messaging layer, ensuring that all nodes can maintain consistency on data availability at any time, we can greatly expand the inscription system. This is very useful for monolithic blockchains such as Bitcoin and Ethereum.</p>
+<h2 id="the-fridge-safe-problem"> The &quot;Fridge Safe&quot; Problem</h2>
+<p>Undoubtedly, modular blockchains enhance system throughput, but at the same time, they address another more important issue. Different products have different security assumptions, leading to different consensus requirements. For example, in social networks, the order of relationship transactions is not sensitive, while the order of DeFi and NFT transactions is a very important part of system security. However, in a blockchain with unified consensus, they need to pay for the same consensus mechanism. This is like not putting cola in a fridge but a safe, which we call the &quot;Cola Safe Problem.&quot;</p>
+<p>Consider a design pattern where Rollups on the same settlement layer have different security models and interact with each other through some protocol, enabling Rollups to achieve adaptive security at the same cost. For example, users expect interactions in social network applications to be free, which requires &quot;consensus&quot; to be as light as possible. However, the social relationships generated by social networks have protocol value, relied upon by many other applications, requiring &quot;consensus&quot; to be as secure as possible. To resolve this contradiction, we can utilize the fact that most protocol applications are &quot;read-only,&quot; designing a &quot;read-only&quot; cross-Rollup protocol, where applications that depend on a challenged application are equally reduced. Therefore, even if the social network is based on a permissioned blockchain, for security considerations, applications that depend on it will also verify it. Thus, the more widely used an application is, the higher its security, bringing about a transaction paradigm that is security adaptive without increasing user costs, while also ensuring on-chain data availability (on the same settlement layer).</p>
+]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="Modular Blockchain"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">What is Melodot</title>
+    <id>https://docs.melodot.io/learn/</id>
+    <link href="https://docs.melodot.io/learn/"/>
+    <updated>2023-10-03T14:11:32.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="what-is-melodot"> What is Melodot</h1>
+<p>Melodot is an independent data availability layer, serving as an upgraded version of the original data availability layer and acting as the foundational infrastructure for modular blockchain. Melodot is agnostic to data formats and is compatible with almost all forms of blockchains such as Substrate/EVM/Cosmos. The settlement layer doesn't need to introduce any additional assumptions but relies on efficient sampling to ensure data availability. From its inception, Melodot set out with the following design goals:</p>
+<h3 id="gb-level-data-throughput"> GB-level Data Throughput</h3>
+<p>Melodot was designed to be a high-throughput data availability layer. Validators don't download the data in its entirety; they ensure its availability through sampling, which significantly boosts throughput. We introduced &quot;farmers&quot; and PoSpace to address the traditional assumptions of the &quot;minimum number of samplers&quot; in data availability layers, enhancing system robustness and further increasing throughput.</p>
+<h3 id="cryptographically-secure-guarantees"> Cryptographically Secure Guarantees</h3>
+<p>Currently, Melodot uses polynomial commitments to ensure data is correctly encoded. It doesn't require fraud proofs, thus avoiding the introduction of additional security assumptions.</p>
+<h3 id="distributed-generation-and-storage"> Distributed Generation and Storage</h3>
+<p>Melodot adopts distributed generation, allowing validators to operate like light clients. It delegates the task of expanding data column-wise to multiple farmers, effectively increasing the system's throughput and reducing centralization.</p>
+<p>Melodot employs the PoSpace incentive mechanism to ensure that farmers store data honestly. It allows consumer-grade personal computers to participate, achieving highly decentralized distributed storage while encouraging farmers to actively engage in data exchange.</p>
+<h3 id="shard-friendly"> Shard-Friendly</h3>
+<p>Melodot's validators are extremely lightweight, acting more like a light client in data processing, making it very shard-friendly. In the future, we can effortlessly implement vertical sharding by merely grouping validators randomly. When the number of vertical shards reaches 30, a single block can accommodate a maximum data volume of 15GB.</p>
+<p>Melodot doesn't support smart contracts, so there's no &quot;Train Ticket-Hotel&quot; problem, making it very horizontal shard-friendly. After implementing horizontal sharding, the data payload within a block time can theoretically reach PB levels. However, achieving this in practice is challenging, as we'll face new bottlenecks, such as the settlement layer and other participants needing to enter numerous networks for sampling, which will soon hit performance limitations. We'll continuously identify these bottlenecks and seek solutions.</p>
+]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="What is Melodot"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">运行 Melodot 节点</title>
+    <id>https://docs.melodot.io/zh/guide/node/starting-a-node/</id>
+    <link href="https://docs.melodot.io/zh/guide/node/starting-a-node/"/>
+    <updated>2023-11-10T00:52:16.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="运行-melodot-节点"> 运行 Melodot 节点</h1>
+<h2 id="_1-编译-melodot"> 1. 编译 Melodot</h2>
+<h2 id="installation"> Installation</h2>
+<div><pre><code><span>git</span> clone git@github.com:ZeroDAO/melodot.git
+<span>cd</span> melodot
+</code></pre>
+<div><span>1</span><br><span>2</span><br></div></div><h2 id="build"> Build</h2>
+<div><pre><code><span>make</span> build-default
+</code></pre>
+<div><span>1</span><br></div></div><h1 id="_2-运行开发网络"> 2. 运行开发网络</h1>
+<h2 id="_1-run-as-dev"> 1. Run as dev</h2>
+<div><pre><code><span>make</span> run-dev
+</code></pre>
+<div><span>1</span><br></div></div><h2 id="_2-run-as-local"> 2. Run as local</h2>
+<p>Start the local blockchain node using the <code>alice</code> account by running the following command:</p>
+<div><pre><code>./target/release/melodot-node <span>\</span>
+  --base-path /tmp/alice <span>\</span>
+  --chain <span>local</span> <span>\</span>
+  --alice <span>\</span>
+  --node-key 0000000000000000000000000000000000000000000000000000000000000001
+  --validator
+</code></pre>
+<div><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br></div></div><p>Start a second local blockchain node using the <code>bob</code> account by running the following command:</p>
+<div><pre><code>./target/release/melodot-node <span>\</span>
+  --base-path /tmp/bob <span>\</span>
+  --chain <span>local</span> <span>\</span>
+  --bob <span>\</span>
+  --port <span>30334</span> <span>\</span>
+  --bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp
+  --validator
+</code></pre>
+<div><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br><span>6</span><br><span>7</span><br></div></div>]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="运行节点"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">Melodot Docs</title>
+    <id>https://docs.melodot.io/</id>
+    <link href="https://docs.melodot.io/"/>
+    <updated>2023-10-03T14:11:32.000Z</updated>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">运行农民客户端</title>
+    <id>https://docs.melodot.io/zh/guide/node/strating-a-farmer-client/</id>
+    <link href="https://docs.melodot.io/zh/guide/node/strating-a-farmer-client/"/>
+    <updated>2024-01-30T09:31:04.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="运行农民客户端"> 运行农民客户端</h1>
+<h2 id="_1-introduction"> 1. Introduction</h2>
+<p>Melodot 的农民客户端承担了分布式生成和存储数据的任务，它们通过诚实地生成和存储数据获得奖励。目前的版本是一个简化的 PoC 版本，它演示了
+PoSpace 在 Melodot 网络中的工作原理。</p>
+<h2 id="_2-编译"> 2. 编译</h2>
+<p>从源码构建</p>
+<div><pre><code><span>git</span> clone git@github.com:ZeroDAO/melodot.git
+<span>cd</span> melodot
+<span>make</span> build-farmer
+</code></pre>
+<div><span>1</span><br><span>2</span><br><span>3</span><br></div></div><h2 id="_3-运行"> 3. 运行</h2>
+<p>首先确保已启动了 Melodot 开发网络，然后你可以通过一下命名启动农民客户端。</p>
+<div><pre><code><span>make</span> run-farmer
+</code></pre>
+<div><span>1</span><br></div></div>]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="运行农民客户端"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2024-01-30T09:31:04.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">运行轻节点</title>
+    <id>https://docs.melodot.io/zh/guide/node/strating-a-light-client/</id>
+    <link href="https://docs.melodot.io/zh/guide/node/strating-a-light-client/"/>
+    <updated>2023-11-10T00:52:16.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="运行轻节点"> 运行轻节点</h1>
+<h2 id="_1-introduction"> 1. Introduction</h2>
+<p>Melodot 网络的轻客户端，目前可在开发网络中运行，轻节点可以通过 RPC 与 Melodot 网络获取终结区块的区块头，并通过抽样验证数据有效性。</p>
+<h2 id="_2-运行机制"> 2. 运行机制</h2>
+<p>Melodot 轻节点通过抽样来获取数据可用性，它无需信任任何节点，也不需要下载整个数据。</p>
+<p>轻节点首先会通过全节点获取最新的终结区块的区块头，然后通过区块头中的元数据来构建样本 ID ，随后在单独的数据网络中抽样这些随机样本，
+并通过区块头中的 KZG 承诺验证数据。</p>
+<h2 id="_3-编译"> 3. 编译</h2>
+<p>从源码构建</p>
+<div><pre><code><span>git</span> clone git@github.com:ZeroDAO/melodot.git
+<span>cd</span> melodot
+<span>make</span> build-light
+</code></pre>
+<div><span>1</span><br><span>2</span><br><span>3</span><br></div></div><h2 id="_4-运行"> 4. 运行</h2>
+<p>首先确保已启动了 Melodot 开发网络，然后运行轻节点加入开发网络中</p>
+<div><pre><code><span>make</span> run-light-dev
+</code></pre>
+<div><span>1</span><br></div></div><h2 id="_5-rpc-接口"> 5. RPC 接口</h2>
+<h3 id="post-das-blockconfidence"> POST /das_blockConfidence</h3>
+<p>通过区块hash获取置信度, 将返回以百万分之一为单位的置信度。</p>
+<div><pre><code><span>curl</span> --data <span>'{"method":"das_blockConfidence",\
+"params":["0xc964c3636fdf33bcc4ccc7ad854b32862e02ec50f02a00ba43f0b02c4fbb67e3"],\
+"id":1,"jsonrpc":"2.0"}'</span> <span>\</span>
+-H <span>"Content-Type: application/json"</span> <span>\</span>
+-X POST localhost:4177
+</code></pre>
+<div><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br></div></div><p><em><strong>Responses</strong></em></p>
+<div><pre><code><span>{</span><span>"jsonrpc"</span><span>:</span><span>"2.0"</span><span>,</span><span>"result"</span><span>:</span><span>937500</span><span>,</span><span>"id"</span><span>:</span><span>1</span><span>}</span>
+</code></pre>
+<div><span>1</span><br></div></div><h3 id="post-das-isavailable"> POST /das_isAvailable</h3>
+<p>通过区块hash获取该区块的数据是否可用，如果返回 null 表示没有该区块的数据。</p>
+<div><pre><code><span>curl</span> --data <span>'{"method":"das_isAvailable",\
+"params":["0xc964c3636fdf33bcc4ccc7ad854b32862e02ec50f02a00ba43f0b02c4fbb67e3"],\
+"id":1,"jsonrpc":"2.0"}'</span> <span>\</span>
+-H <span>"Content-Type: application/json"</span> <span>\</span>
+-X POST localhost:4177
+</code></pre>
+<div><span>1</span><br><span>2</span><br><span>3</span><br><span>4</span><br><span>5</span><br></div></div><p><em><strong>Responses</strong></em></p>
+<div><pre><code><span>{</span><span>"jsonrpc"</span><span>:</span><span>"2.0"</span><span>,</span><span>"result"</span><span>:</span><span>false</span><span>,</span><span>"id"</span><span>:</span><span>1</span><span>}</span>
+</code></pre>
+<div><span>1</span><br></div></div>]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="运行轻节点"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-11-10T00:52:16.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">环境配置</title>
+    <id>https://docs.melodot.io/zh/guide/</id>
+    <link href="https://docs.melodot.io/zh/guide/"/>
+    <updated>2023-10-03T14:11:32.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="环境配置"> 环境配置</h1>
+<h3 id="安装-rust"> 安装 Rust</h3>
+<div><pre><code><span>curl</span> https://sh.rustup.rs -sSf <span>|</span> <span>sh</span>
+rustup update stable
+</code></pre>
+<div><span>1</span><br><span>2</span><br></div></div><h3 id="安装依赖"> 安装依赖</h3>
+<h4 id="mac"> Mac</h4>
+<div><pre><code>brew <span>install</span> cmake pkg-config openssl <span>git</span> llvm
+</code></pre>
+<div><span>1</span><br></div></div><h4 id="linux"> Linux</h4>
+<div><pre><code><span>sudo</span> <span>apt</span> <span>install</span> cmake pkg-config libssl-dev <span>git</span> clang libclang-dev
+</code></pre>
+<div><span>1</span><br></div></div><div><p>更多</p>
+<p>Melodot 基于 Substrate 开发，了解更多请至 <a href="https://docs.substrate.io/install/" target="_blank" rel="noopener noreferrer">Substrate</a> 。</p>
+</div>
+]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="环境配置"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">节点类型</title>
+    <id>https://docs.melodot.io/zh/guide/node/types-of-nodes/</id>
+    <link href="https://docs.melodot.io/zh/guide/node/types-of-nodes/"/>
+    <updated>2023-11-10T00:52:16.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="节点类型"> 节点类型</h1>
+<p>Melodot 节点分为三种主要类型：共识节点、轻客户端、农民节点，他们协同工作以维护 Melodot 网络的高吞吐量和安全性。共识节点负责
+共识，轻客户端负责验证，农民节点负责存储数据。</p>
+<h2 id="共识节点"> 共识节点</h2>
+<p>共识节点的职责是处理数据交易以少量其他类型的转账等必要的交易。共识节点的设计原则是足够轻，验证者承担尽可能少的任务，以便
+他们可以在不影响共识的情况下执行其他任务，同时增强系统的可扩展性。</p>
+<p>具体来说，共识节点负责：</p>
+<ul>
+<li>处理数据交易</li>
+<li>达成共识并生成区块</li>
+<li>处理农民激励相关的交易</li>
+<li>初步抽样应用数据可用性</li>
+<li>处理少量其他类型的转账等必要的交易</li>
+</ul>
+<p>你也许意识到，共识节点不负责最终的数据可用性。从架构上来说，验证者无需关心数据是否可用，他们只应该关心数据交易是否有效。但为了
+更高的可用性，未来我们会引入另一个数据提供者的角色来保障数据可用性，而共识节点只需要简单的抽样。另外，共识节点也并不真正下载和
+存储数据，这是农民节点的职责。</p>
+<p>从更细的颗粒来看，共识节点又分为验证者节点、全节点、引导节点、共识轻节点等等。</p>
+<h2 id="轻客户端"> 轻客户端</h2>
+<p>轻客户端通过抽样验证数据可用性，而无需信任包括验证者在内的第三方。当前轻客户端通过 RPC 与共识节点进行通信，未来我们会引入
+更多的通信方式，比如通过 P2P 网络与共识节点进行通信，并且具备终结区块的能力，使得轻客户端无需信任共识节点，从而大幅提高轻客户端
+的安全性。</p>
+<p>轻客户端中提供了 RPC 服务，你可以通过它来获取每个区块的数据置信度和可用性。未来我们会引入更多语言的 SDK，使得轻客户端可以更加
+方便的被集成到应用中。</p>
+<p>从系统的角度看，轻客户端在抽样的同时也成为数据的提供者，轻客户端的规模决定了单个区块可容纳的数据量。</p>
+<h2 id="农民节点"> 农民节点</h2>
+<p>农民节点通过存储数据来获取奖励，并通过链下共识的方式为其他抽样节点提供样本。农民节点是整个网络的骨干节点，它们增强了你获取数据的能力。</p>
+<p>需要注意的是，农民节点并不影响数据可用性的安全性。</p>
+]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="节点类型"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-11-10T00:52:16.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">使用 Docker</title>
+    <id>https://docs.melodot.io/zh/guide/node/using-docker/</id>
+    <link href="https://docs.melodot.io/zh/guide/node/using-docker/"/>
+    <updated>2023-11-10T00:52:16.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="使用-docker"> 使用 Docker</h1>
+<p>Clone Melodot 的代码库，并在终端进入项目目录，</p>
+<div><pre><code><span>git</span> clone git@github.com:ZeroDAO/melodot.git
+<span>cd</span> melodot
+</code></pre>
+<div><span>1</span><br><span>2</span><br></div></div><p>使用下方命令启动一个容器运行 melodot</p>
+<div><pre><code>./scripts/docker_run.sh
+</code></pre>
+<div><span>1</span><br></div></div>]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="使用 Docker"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">提交数据</title>
+    <id>https://docs.melodot.io/zh/guide/submitting-data/</id>
+    <link href="https://docs.melodot.io/zh/guide/submitting-data/"/>
+    <updated>2023-10-03T14:11:32.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="提交数据"> 提交数据</h1>
+<p>目前你可以从 Rust 的示例中了解如何与 Melodot 交互，预计不久之后轻节点发布后我们会修改部分接口，那时我们将更新更为强大的接口。</p>
+<h2 id="示例"> 示例</h2>
+<ol>
+<li><a href="https://github.com/ZeroDAO/melodot/blob/main/crates/meloxt/examples/header.rs" target="_blank" rel="noopener noreferrer">连接到 Melodot</a>.</li>
+<li><a href="https://github.com/ZeroDAO/melodot/blob/main/crates/meloxt/examples/register_app.rs" target="_blank" rel="noopener noreferrer">注册应用</a>.</li>
+<li><a href="https://github.com/ZeroDAO/melodot/blob/main/crates/meloxt/examples/submit_data.rs" target="_blank" rel="noopener noreferrer">调用 submit_data 接口</a>.</li>
+<li><a href="https://github.com/ZeroDAO/melodot/blob/main/crates/meloxt/examples/submit_blob_tx.rs" target="_blank" rel="noopener noreferrer">使用 submit_blob_tx RPC</a>.</li>
+</ol>
+]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="提交数据"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">Blob_tx 的生命周期</title>
+    <id>https://docs.melodot.io/zh/learn/architecture/lifecycle-of-blob_tx/</id>
+    <link href="https://docs.melodot.io/zh/learn/architecture/lifecycle-of-blob_tx/"/>
+    <updated>2023-10-03T14:11:32.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="blob-tx-的生命周期"> Blob_tx 的生命周期</h1>
+<p><img src="./../../image/lifecycle-zh-min.png" alt="lifecycle" /></p>
+<h2 id="用户编码数据"> 用户编码数据</h2>
+<p>用户将需要提交的数据分割为 Blob ，计算每个 blob 的多项式承诺，并完成一个用于证明数据被正确编码的挑战。</p>
+<h2 id="提交-blobs-和交易"> 提交 blobs 和交易</h2>
+<p>用户将编码后的元数据构造为交易，并和原始数据一同提交至节点。节点将交易推送到交易池，之后验证编码是否被正确执行，与交易中的元数据是否相符，如果一切无误，将把原始数据推送到点对点网络。需要注意的是，如果数据未被正确编码，交易仍然会被推送到交易池，但节点不会推送数据，这么做是为了防止拒绝服务攻击。</p>
+<p>在最终版本中，原始数据并不会在验证者中传播，并且用户可以用多种方式发布数据和提交交易，例如可以通过轻客户端直接发起交易和推送数据，也可以向节点 RPC 端口提交原始数据和交易，或者只提交交易，自行发布数据。</p>
+<h2 id="验证者初步确定可用性"> 验证者初步确定可用性</h2>
+<p>验证者在完成一个区块构建后，将初步验证数据可用性。这是一个非常宽松的验证，目的是提高系统健壮性。在当前版本中，验证者需要从点对点网络中下载所有数据来验证，在即将完成的下个阶段中，验证者只需要通过便宜的抽样即可。</p>
+<p>验证者发现数据不可用则会发起不可用性报告，当发起报告的验证者达到一定阈值时，数据将会被标记为不可用。其他所有可用的数据将会被编码到区块头。</p>
+<p>目前我们设置了 1 区块的延时值，即当前区块的数据将在下一个区块被编码到区块头。这么做的目的是为了提供足够的时间窗口报告不可用数据。在正式版本中，我们将采用聚合签名来高效地确认不可用性数据，当前区块的数据将立即编码到区块头中。</p>
+<h2 id="农民分布式生成数据"> 农民分布式生成数据</h2>
+<p>当区块达到 Best 之后，农民从区块头信息中获取自己需要下载的行和列，之后扩展列到双倍大小。</p>
+<h2 id="可用性采样"> 可用性采样</h2>
+<p>当包含了数据可用性区块头的区块达到终结后，验证者、农民和用户（轻客户端）将同时进行采样，通过多次的采样获取最终的信心值。农民在此阶段需要获取更大范围的数据，这保证了系统中有足够多的采样节点。</p>
+<h2 id="分布式存储"> 分布式存储</h2>
+<p>抽样阶段完成后，农民将特定的行和列保存到分布式存储。</p>
+]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="Blob_tx 的生命周期"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">模块化区块链</title>
+    <id>https://docs.melodot.io/zh/learn/introduction/modular-blockchains/</id>
+    <link href="https://docs.melodot.io/zh/learn/introduction/modular-blockchains/"/>
+    <updated>2024-02-22T10:57:40.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="模块化区块链"> 模块化区块链</h1>
+<p>模块化区块链是一个未经定义的概念，我们暂时用它来指代符合领域驱动设计思想的区块链架构，因此它有可能与你知道的“模块化”概念并不相同。</p>
+<h2 id="架构"> 架构</h2>
+<p><img src="./../../../image/modular-blockchains.png" alt="modular-blockchain" /></p>
+<p><strong>共识层和状态机</strong></p>
+<p>区块链本质上是一个有限状态机，可以通过外部指令改变状态。为了就状态变化形成全球共识，我们需要一个共识层来确保这一点。它们是区块链的核心部分，共识层和状态机实际上是独立的。在 Substrate 框架中，有很多共识层 Pallet 与状态机组成 Runtime；在 Cosmos 中，状态机和共识层是明确解耦的；在以太坊的最新架构中，共识层和执行层也是解耦的。</p>
+<p>在 Rollups 中，我们经常将共识层称为结算层，其中交易在链外执行，最终状态根保留在结算层，本质上服务于共识角色。</p>
+<p><strong>消息队列服务</strong></p>
+<p>消息传递层是软件工程中不可或缺的一部分，它允许系统模块之间进行可靠的通信，每个模块都各司其职。在区块链的背景下，我们很容易想到跨链消息，例如在两个链之间进行通信的跨链桥，或者像XCM（跨共识消息格式）和 IBC（区块链间通信）这样的跨链消息协议）。</p>
+<p>事实上，另一个重要的消息传递层是链本身。我们将比特币、波卡和以太坊视为可靠的消息服务。比特币的 Ordinals、BRC20 和其他协议在比特币网络上传输顺序指令并对状态机进行协议化，理想情况下允许所有用户在不信任第三方的情况下验证交易。在以太坊生态系统中，早期就有通过日志实现ERC20的提议。</p>
+<p>虽然铭文并不被大众认为是模块化区块链，但从技术角度来看，它将单体区块链作为消息队列服务，已经符合模块化区块链的思想。铭文的优势在于所有节点在无需沟通的情况下即可达成共识，极大地扩展了区块链的吞吐量。但劣势也显而易见，消息服务层只能传递极少的信息，使得铭文系统难以扩展，例如智能合约功能。如果我们将数据安全地存储在另一个模块，只在消息层发布数据的指针，并确保所有节点都能在任意时刻对数据可用性保持一致，我们就能极大地扩展铭文系统，这在比特币、以太坊等单体区块链上非常有用。</p>
+<h2 id="冰箱保险柜问题"> 冰箱保险柜问题</h2>
+<p>毫无疑问，模块化区块链提高了系统吞吐量，但同时它将解决另一个更加重要的问题。不同的产品具有不用的安全假设，从而有不同的共识需求。例如社交网络中，关注关系交易对排序并不敏感，而Defi 和 NFT 交易的排序是系统安全中非常重要的一部分，但在统一共识的区块链中，他们需要为同样的共识机制付费。这就如同我们不把可乐放进冰箱，而是保险柜，我们称它为“可乐保险箱问题”。</p>
+<p>考虑这样一种设计模式，在同一个结算层上的 Rollup 有不同的安全模型，他们通过某种协议进行交互，使得 Rollup 在相同成本的情况下实现了自适应的安全性。举例来说，用户期望社交网络类应用的交互是免费的，这要求“共识”要尽可能地轻。但社交网络产生的社交关系具有协议价值，被其他许多应用依赖，又要求“共识”尽可能地安全。为了解决这个矛盾，我们可以利用协议类应用大多数为“只读”的特点，设计一种“只读”的跨 Rollup 协议，当被依赖的应用受到挑战而被削减时，所有在两步之内依赖它的应用都同样被削减 。因此，即便社交网络是基于许可区块链的，出于安全性考量，依赖于它的应用也会同时验证它。于是使用越广泛的应用安全性越高，这就带来了一个安全性自适应但并不增加用户成本的交易范式，而且同时保证了链上数据可用性（在同一个结算层）。</p>
+]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="模块化区块链"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">Melodot 如何工作</title>
+    <id>https://docs.melodot.io/zh/learn/architecture/</id>
+    <link href="https://docs.melodot.io/zh/learn/architecture/"/>
+    <updated>2023-10-03T14:11:32.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="melodot-如何工作"> Melodot 如何工作</h1>
+<h2 id="数据可用性抽样"> 数据可用性抽样</h2>
+<p>解耦后数据可用性层，需要确保任何使用它的模块都可以低成本地对数据可用性达成一致。这要求数据可用性层并不是“它在多大程度上是安全的”，而是“不引入额外假设”。Melodot 通过将数据编码为 2D 矩阵后，采用可用性抽样来实现这一点。具体来说，数据在行方向上和列方向上被扩展到两倍大小，其中任意行和列的任意一半的数据都可以恢复出原始数据。因此你只需要成功随机抽样一个数据块，就表明该数据可用性概率为 75%，多次采样后得到足够的可用性信心保证。</p>
+<h2 id="多项式承诺"> 多项式承诺</h2>
+<p>Melodot 使用多项式承诺来确保数据被正确编码。原始的数据可用性层方案采用默克尔编码，要求一个强大的全节点获取所有数据并生成和传播欺诈证明，我们避免了这一点，这不仅降低了效率，同时也引入了额外的假设。</p>
+<p>具体来说，我们在行方向上生成 KZG 承诺。每 <code>l</code> 个数据块被编码为片段，它们共用一个相同的证明，采样同样是基于片段进行的，这是为了提高采样的效率。</p>
+<p>同时，我们在设计中保持兼容性，并持续研究其他替代密码学解决方案，例如 STARK、FRI、IPA 等方面的最新进展。</p>
+<h2 id="最少诚实采样者"> 最少诚实采样者</h2>
+<p>当网络中诚实采样者数量不足时，数据提供者只释放一部数据，它们足以使得采样者以为数据是可用的，随后数据提供者隐藏剩余的数据，导致数据无法恢复。这要求网络中存在足够多的诚实采样者，通过抽样将数据饱和地存储于点对点网络。因此可以认为系统吞吐量取决于诚实采样者数量。</p>
+<p>我们很难观察和预测每个区块的采样者数量。因为轻客户端更关心于自己相关的数据，出于经济上的考量，轻客户端不对没有自己感兴趣的区块采样，这导致每个区块的具有不同数量的采样者，他们的差别可能非常大。因此，”系统吞吐量随着采样者数量的增长而增长“是一个需要谨慎对待的结论。</p>
+<p>Melodot 通过引入农民来解决该问题，农民被激励为采样足够数量的可用性数据、保存数据至一定时长、为点对点网络提供带宽。我们可以从奖励的发放情况获取活跃农民的数量，从而安全确定系统吞吐量。</p>
+<h2 id="分布式生成"> 分布式生成</h2>
+<p>原始的数据可用性层在提议阶段，提议者单独对全部数据进行昂贵的多项式承诺和 RS 编码，需要非常高的带宽和性能。这不仅加深了系统的中心化程度，也会成为系统吞吐量的瓶颈。</p>
+<p>在数据验证和存储阶段，验证者需要下载大量的数据（甚至全部数据），当数据块无效还需要进行重构，这大幅增加了验证者的负载。系统为了确保一切符合期望，需要额外的机制，让臃肿的验证者雪上加霜。</p>
+<p>在 Melodot 中，验证者更像一个轻客户端，他们无须进行昂贵的编码。数据在列方向扩展的任务交给不同的农民，他们首先从区块头中获取原始的承诺，并扩展到双倍大小。之后农民获取自己所需的列，将数据块和证明扩展到双倍大小，这是通过直接扩展实现的，不需要实际进行多项式承诺类的计算。农民需要从这些数据中寻找“彩票”，以获取奖励。分布式生成完成后，点对点网络中应当已经包含了 2D 纠删码后的所有数据块。需要注意的是，在 worst case 中，所有农民全部掉线，这将导致最终的采样失败，数据不可用，因此农民并不影响系统安全性。</p>
+<p>分布式生成对系统吞吐量是至关重要的，我们实际做到了系统吞吐量随着农民的数量增加而增加，并且建立在不牺牲去中心化的基础上。</p>
+<h2 id="pospace"> PoSpace</h2>
+<p>Melodot 通过 Chia 风格的 PoSpace 来确保农民诚实地存储了数据，它需要农民一次性的完成一次被称为 “P盘” 的步骤，以承诺一定大小的硬盘空间。在这之后农民可以在此硬盘上耕种相当长的时间，并且对资源的消耗非常小，允许消费级的个人电脑加入到网络中，这是一种去中心化程度非常高的激励机制。</p>
+<p>在正式版本中，用户可自行设置数据存储的期限，过期的数据将无法获取奖励，农民需要定期更新数据。用户将从农民为主的分布式存储中可靠地获取可用性数据。在最终版本中，我们引入针锋相对的技术，激励农民更多地参与数据交换。</p>
+]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="Melodot 如何工作"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">OverTrue 开发测试网</title>
+    <id>https://docs.melodot.io/zh/learn/introduction/networks/</id>
+    <link href="https://docs.melodot.io/zh/learn/introduction/networks/"/>
+    <updated>2024-01-30T09:31:04.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="overtrue-开发测试网"> OverTrue 开发测试网</h2>
+<p>浏览器： <a href="https://scan.melodot.io/" target="_blank" rel="noopener noreferrer">https://scan.melodot.io/</a></p>
+<p>OverTrue 是一个开发测试网，它的目的是分阶段地提供一个可用的测试环境，它将快速迭代，因此将会在不提前通知的情况下进行重置。目前我们没有
+运行足够数量的农民，因此并不能保证数据可用性。但预计很快就上线完整功能版本，进入 OverTrue 的正式测试阶段。</p>
+<h3 id="水龙头"> 水龙头</h3>
+<p>加入 ZeroDAO 的 <a href="https://discord.gg/uCQUcd9fk7" target="_blank" rel="noopener noreferrer">Discord</a> , 在 <code>#melodot-faucet</code> 频道下，使用 <code>/deposit</code> 命令获取测试币。</p>
+]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="网络"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2024-01-30T09:31:04.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">Melodot 是什么</title>
+    <id>https://docs.melodot.io/zh/learn/</id>
+    <link href="https://docs.melodot.io/zh/learn/"/>
+    <updated>2023-10-03T14:11:32.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="melodot-是什么"> Melodot 是什么</h1>
+<p>Melodot 是一个独立的数据可用性层，它是原始数据可用性层的升级版，是模块化区块链的基础设施。Melodot 与数据格式无关，兼容 Substrate/EVM/Cosmos 等几乎一切形式的区块链。结算层无须引入任何额外的假设，而是通过高效的抽样来获得数据可用性保证。Melodot 从一开始便制定了以下设计目标：</p>
+<h3 id="gb-级别的数据吞吐量"> GB 级别的数据吞吐量</h3>
+<p>Melodot 被设计为大吞吐量的数据可用性层。验证者并不完整下载数据，而是通过抽样初步确保数据可用性，这极大地提升了吞吐量。我们引入了农民和 PoSpace 解决了传统数据可用性层对”最小抽样者数量“的假设，增强系统健壮性的同时进一步提升了吞吐量。</p>
+<h3 id="基于密码学的安全保证"> 基于密码学的安全保证</h3>
+<p>Melodot 目前使用多项式承诺来确保数据被正确编码，它不需要欺诈证明，从而避免引入额外的安全假设。</p>
+<h3 id="分布式生成和存储"> 分布式生成和存储</h3>
+<p>Melodot 采用分布式生成方法，使验证者像轻客户端一样工作，将数据在列方向扩展的任务分给多个农民，这有效提高了系统的吞吐量并减少了中心化程度。</p>
+<p>Melodot 利用 PoSpace 激励机制确保农民诚实存储数据，允许消费级个人电脑参与，实现高度去中心化的分布式存储，同时鼓励农民积极参与数据交换。</p>
+<h3 id="分片友好"> 分片友好</h3>
+<p>Melodot 的验证者非常轻，在数据处理上更像一个轻客户端，这对分片极为友好。未来我们可以非常轻松地实现垂直分片，只需要对验证者进行随机分组即可。当垂直分片数量达到 30 个时，单个区块可容纳的最大数据量为 4096 * 32 * 4096 * 30 字节，即 15GB 。</p>
+<p>Melodot 不支持智能合约，因此不存在”火车票酒店“问题，这对水平分片非常友好，实施水平分片后在一个区块时间内，数据携带量理论上可达到 PB 级别。但这实际上很难达到，因为我们会遇到一些新的瓶颈，例如结算层和其他参与者需要进入很多网络进行抽样，这很快会达到性能瓶颈。我们将持续寻找这些瓶颈，并努力寻求解决方案。</p>
+]]></content>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <category term="Melodot 是什么"/>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+  <entry>
+    <title type="html">Melodot 文档</title>
+    <id>https://docs.melodot.io/zh/</id>
+    <link href="https://docs.melodot.io/zh/"/>
+    <updated>2023-10-03T14:11:32.000Z</updated>
+    <author>
+      <name>ZeroDAO</name>
+    </author>
+    <contributor>
+      <name>ZeroDAO</name>
+    </contributor>
+    <published>2023-10-03T14:11:32.000Z</published>
+    <rights>Copyright by ZeroDAO</rights>
+  </entry>
+</feed>
